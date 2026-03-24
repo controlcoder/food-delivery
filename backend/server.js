@@ -9,7 +9,6 @@ import orderRouter from "./routes/orderRoutes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = process.env.PORT;
 
 app.use(express.json());
 app.use(
@@ -31,6 +30,10 @@ app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-app.listen(port, () => {
-  console.log(`http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  const port = process.env.PORT || 8888;
+
+  server.listen(port, () => {
+    console.log("server is listening");
+  });
+}
